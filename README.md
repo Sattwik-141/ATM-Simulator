@@ -1,65 +1,165 @@
 #  ATM Simulator
 
-A Java-based **ATM (Automated Teller Machine) Simulator** that demonstrates the core functionality and workflow of an ATM through a simple interactive application.
+A **Java-based ATM Simulator** with **MySQL database integration** that simulates essential ATM and banking operations.
 
-The project was developed to practice **Java programming, Object-Oriented Programming (OOP), control flow, input handling, and application design** by simulating common ATM operations.
+The application uses **Java for the application logic and user interaction**, while **MySQL is used for persistent storage and retrieval of account information and transaction data**. Database operations are handled through **JDBC (Java Database Connectivity)**.
 
 ---
 
-## 📌 Overview
+## 📌 Project Overview
 
-The ATM Simulator recreates the basic interaction between a user and an ATM machine.
+The ATM Simulator is designed to replicate the basic workflow of an Automated Teller Machine.
 
-Users can interact with the application to perform banking-related operations such as checking their balance and carrying out transactions, depending on the available options in the application.
+Users can create and access their banking information and perform ATM operations. Instead of keeping account data only in program memory, the application connects to a **MySQL database**, allowing account information and balance-related data to be stored and retrieved persistently.
 
-The project focuses on implementing the **logic behind ATM operations** while maintaining a simple and easy-to-understand Java structure.
+The application calculates and updates the user's balance based on the transactions performed.
+
+### System Architecture
+
+```text
+              ┌─────────────────────┐
+              │     ATM Simulator   │
+              │        Java         │
+              └──────────┬──────────┘
+                         │
+                         │ JDBC
+                         ▼
+              ┌─────────────────────┐
+              │    MySQL Database   │
+              │                     │
+              │ Account Information │
+              │ Transaction Data    │
+              │ Balance Information │
+              └─────────────────────┘
+```
 
 ---
 
 ## ✨ Features
 
-* 🏦 ATM-style banking interface
-* 🔐 User authentication / PIN-based access
+* 🔐 User/account authentication
+* 📝 Account information creation and storage
 * 💰 Balance enquiry
-* 💵 Cash withdrawal
-* 💳 Cash deposit
-* 🔄 Transaction handling
-* 🔑 PIN-related functionality
-* ✅ Input validation
-* ⚠️ Handling of invalid inputs and transaction conditions
-* 🧩 Object-Oriented Programming based implementation
+* 💵 Deposit functionality
+* 💸 Withdrawal functionality
+* 🔄 Balance calculation and updating
+* 🗄️ Persistent data storage using MySQL
+* 🔎 Retrieval of account information from the database
+* 🔗 Java–MySQL connectivity using JDBC
+* ⚠️ Input and transaction validation
+* 🏦 ATM-style banking workflow
 
 ---
 
 ## 🛠️ Technologies Used
 
-* **Java**
-* **Object-Oriented Programming (OOP)**
-* **Java Collections**
-* **Exception / Input Handling**
-* **IntelliJ IDEA**
+| Technology        | Purpose                                             |
+| ----------------- | --------------------------------------------------- |
+| **Java**          | Application logic and ATM functionality             |
+| **MySQL**         | Persistent database storage                         |
+| **JDBC**          | Connecting Java application with MySQL              |
+| **SQL**           | Creating, retrieving, and updating database records |
+| **IntelliJ IDEA** | Development environment                             |
 
 ---
 
-## 🧠 OOP Concepts Demonstrated
+## 🗄️ Database Integration
 
-This project provides practical implementation of fundamental Object-Oriented Programming concepts in Java.
+A major component of this project is the integration of **Java with MySQL**.
 
-### Encapsulation
+The application communicates with the database through **JDBC**, allowing Java code to execute SQL queries and retrieve or modify stored information.
 
-Data and related operations are organized within classes, helping control how account-related information is accessed and modified.
+### Database Operations
 
-### Abstraction
+The application uses the database to:
 
-The application separates the implementation of ATM operations from the way users interact with the system.
+1. Create/store account information.
+2. Retrieve account information when required.
+3. Retrieve the current balance.
+4. Process deposits.
+5. Process withdrawals.
+6. Calculate the updated balance.
+7. Store/update the resulting information in the database.
 
-### Inheritance
+This makes the application more realistic than an ATM simulation that stores all information only in variables during runtime.
 
-Classes can be organized using inheritance where common functionality is shared between related classes.
+---
 
-### Polymorphism
+## 🔄 ATM Transaction Flow
 
-The project demonstrates how Java can use common interfaces or parent-class references to work with different implementations.
+A typical transaction follows this workflow:
+
+```text
+             Start
+               │
+               ▼
+       User Authentication
+               │
+               ▼
+          ATM Operations
+               │
+       ┌───────┼────────┐
+       │       │        │
+       ▼       ▼        ▼
+    Deposit  Withdraw  Balance
+       │       │        │
+       └───────┼────────┘
+               │
+               ▼
+       Retrieve/Update
+       MySQL Database
+               │
+               ▼
+       Updated Account
+          Information
+               │
+               ▼
+              End
+```
+
+---
+
+## 💰 Balance Calculation
+
+The balance is maintained using the account information stored in the database.
+
+For a deposit:
+
+```text
+New Balance = Current Balance + Deposit Amount
+```
+
+For a withdrawal:
+
+```text
+New Balance = Current Balance - Withdrawal Amount
+```
+
+The updated balance is then persisted in the MySQL database so that the information is available in subsequent sessions.
+
+---
+
+## 🔗 Java + JDBC + MySQL
+
+The database communication follows the general structure:
+
+```text
+Java Application
+       │
+       ▼
+      JDBC
+       │
+       ▼
+MySQL Database
+       │
+       ▼
+ SQL Queries
+       │
+       ▼
+Account / Transaction Data
+```
+
+JDBC acts as the bridge between the Java application and the MySQL database, allowing the application to execute SQL operations and process the returned data.
 
 ---
 
@@ -84,114 +184,144 @@ ATM-Simulator/
 
 ### Prerequisites
 
-Make sure you have the following installed:
+Before running the project, make sure you have:
 
-* **Java JDK 8 or later**
-* **IntelliJ IDEA** or another Java-compatible IDE
-
-You can verify your Java installation using:
-
-```bash
-java -version
-```
+* **JDK 8 or later**
+* **MySQL Server**
+* **MySQL Workbench** (recommended)
+* **IntelliJ IDEA** or another Java IDE
+* **MySQL JDBC Driver**
 
 ---
 
-## ▶️ Running the Project
-
-### Using IntelliJ IDEA
-
-1. Clone the repository:
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/Sattwik-141/ATM-Simulator.git
 ```
 
-2. Open the project in **IntelliJ IDEA**.
-
-3. Open the `src` directory.
-
-4. Locate the Java class containing the `main()` method.
-
-5. Run the application using IntelliJ IDEA's **Run** option.
+```bash
+cd ATM-Simulator
+```
 
 ---
 
-## 💡 How It Works
+### 2. Set Up MySQL
 
-The application follows a basic ATM workflow:
+Start your MySQL server and create the database required by the application.
 
-```text
-Start
-  │
-  ▼
-User Authentication
-  │
-  ▼
-ATM Menu
-  │
-  ├── Check Balance
-  │
-  ├── Deposit
-  │
-  ├── Withdraw
-  │
-  ├── PIN / Account Operations
-  │
-  └── Exit
-  │
-  ▼
-End
+For example:
+
+```sql
+CREATE DATABASE atm_simulation;
 ```
 
-The application processes the user's selected operation, validates the input, updates the relevant account information, and returns the user to the ATM menu until they choose to exit.
+Then create the required tables according to the SQL queries/schema used by the project.
+
+---
+
+### 3. Configure Database Connection
+
+Update the database connection details in the Java database connection code with your local MySQL configuration.
+
+Typical configuration parameters include:
+
+```text
+Database URL
+Username
+Password
+```
+
+Make sure the credentials match your local MySQL installation.
+
+> **Security:** Do not commit your actual database password or other credentials to GitHub.
+
+---
+
+### 4. Run the Application
+
+Open the project in IntelliJ IDEA and run the Java class containing the `main()` method.
+
+The application will start the ATM simulation and communicate with MySQL whenever account or balance information needs to be created, retrieved, or updated.
+
+---
+
+## 🧠 Concepts Demonstrated
+
+This project provides practical experience with:
+
+### Java Programming
+
+* Classes and objects
+* Methods
+* Conditional statements
+* Loops
+* User input
+* Exception handling
+* Modular programming
+
+### Database Management
+
+* Relational databases
+* SQL queries
+* Data insertion
+* Data retrieval
+* Data updating
+* Persistent storage
+
+### JDBC
+
+* Establishing database connections
+* Executing SQL queries
+* Retrieving query results
+* Updating database records
+* Connecting application logic with persistent data
 
 ---
 
 ## 🎯 Learning Objectives
 
-This project was created to strengthen understanding of:
+The project was developed to gain practical experience in building a **database-driven Java application**.
 
-* Java fundamentals
-* Classes and objects
-* OOP principles
-* Conditional statements
-* Loops and control flow
-* Methods and modular programming
-* User input handling
-* Data validation
-* Basic banking transaction logic
-* Designing a small real-world simulation
+Key learning outcomes include:
+
+* Understanding how Java applications communicate with databases.
+* Using JDBC to execute SQL queries from Java.
+* Designing basic banking transaction logic.
+* Maintaining account information persistently.
+* Calculating and updating account balances.
+* Handling user input and transaction validation.
+* Understanding the relationship between application logic and database operations.
 
 ---
 
 ## 🔮 Future Improvements
 
-Possible improvements that can make the simulator more realistic and scalable include:
+Potential improvements include:
 
-* [ ] Multiple user/account support
-* [ ] Persistent data storage using a database
 * [ ] Transaction history / mini statement
+* [ ] Multiple account support
 * [ ] Money transfer between accounts
 * [ ] Daily withdrawal limits
-* [ ] Improved authentication and security
-* [ ] GUI using Java Swing or JavaFX
+* [ ] Improved exception handling
+* [ ] Password/PIN hashing
+* [ ] Database transaction management
+* [ ] Better separation of database and business logic
+* [ ] GUI improvements
 * [ ] Unit testing with JUnit
-* [ ] Better exception handling
-* [ ] Database integration using JDBC/MySQL
+* [ ] Deployment with a packaged database configuration
 
 ---
 
 ## 👨‍💻 Author
 
-**Sattwik Bishnu**
+### Sattwik Bishnu
 
-GitHub: [Sattwik-141](https://github.com/Sattwik-141)
+GitHub:
+https://github.com/Sattwik-141
 
 ---
 
-## 📄 License
+## 📄 Disclaimer
 
-This project is intended primarily as an educational and learning project.
-
-Feel free to explore, modify, and improve the code for learning purposes.
+This project is an **educational ATM simulation** and is not intended for processing real banking transactions or sensitive financial information.
